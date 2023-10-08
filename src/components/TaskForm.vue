@@ -20,7 +20,7 @@
                 task:{
                     id: '',
                     title:'',
-                    checked: false
+                    
                 }
             }
 
