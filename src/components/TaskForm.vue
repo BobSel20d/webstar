@@ -19,7 +19,8 @@
             return{
                 task:{
                     id: '',
-                    title:''
+                    title:'',
+                    checked: false
                 }
             }
 
@@ -34,7 +35,8 @@
                         this.$emit('create', this.task);
                         this.task = {
                             id: "",
-                            title:""
+                            title:"",
+                            date: new Date()
 
                         };
                         

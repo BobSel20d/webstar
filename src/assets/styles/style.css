@@ -270,6 +270,9 @@ body {
   .isChecked{
     text-decoration: line-through;
   }
+  .hidden_button{
+    visibility: hidden;
+  }
   
   
   

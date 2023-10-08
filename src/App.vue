@@ -35,13 +35,13 @@ data() {
   },
     //как минимум эти, остальные сами придумайте
     
-    doCheck(index) {
+    MoveToComplete(index) {
       const task = this.needToDoList.splice(index, 1);
-      task[0].date = new Date();
+      task[0].date = new Date().toLocaleString('ru-RU');
       this.completeToDoList.push(task[0])
       this.TaskNumToDo-=1;
       this.TaskNumDone+=1;
-      console.log(index)
+      // console.log(index)
     
     },
     MoveToDo(index) {
@@ -50,20 +50,22 @@ data() {
       this.needToDoList.push(task[0])
       this.TaskNumToDo+=1;
       this.TaskNumDone-=1;
-      console.log(task)
+      // console.log(task)
     },
+    // передаем флаг, откуда удалять
     removeTask(index,flag) {
-      if (flag === 0){
+      if (flag == 0){
         const task =this.needToDoList.splice(index, 1);
         this.TaskNumToDo-=1;
       }
       else{
-        const task =this.completeToDoList.splice(index, 1);
+        const task = this.completeToDoList.splice(index, 1);
         this.TaskNumDone-=1;
       }
       this.TaskNumDel+=1;
     },
-    done(task){
+    TaskDone(task){
+      //console.log("app")
       this.redid = -1;
       this.needToDoList.forEach(e => {
         if (e.id === task.id){
@@ -71,7 +73,9 @@ data() {
         }
       });
     },
-    redact(task){
+    TaskRedact(task){
+      this.inputText = task.title
+      //console.log("app1")
       this.redid = task.id;
 
       
@@ -130,7 +134,18 @@ data() {
           </ul>
 
         </div> -->
-        <task-list :tasks="needToDoList" title="Нужно сделать"   @check="doCheck" />
+        <task-list 
+        :tasks="needToDoList" 
+        title="Нужно сделать"   
+        @check="MoveToComplete" 
+        @remove="removeTask" 
+        @redact="TaskRedact"
+        @done="TaskDone"
+        @inputChangeList = "inputChange"
+        isDelList = 0 
+        :TaskNum = TaskNumToDo
+        :list_redid = this.redid
+        :inputTextList = this.inputText />
         <!-- <div class="wrapper__list">
           <h2>
             <span>Уже сделаны</span>
@@ -156,7 +171,17 @@ data() {
           </ul>
 
         </div> -->
-        <task-list :tasks="completeToDoList" title="Уже сделаны"   @check="MoveToDo" SubStyle = "complete-list" isChecked="isChecked"/>
+        <!-- прокидываем проп isDelList, шобы понять, какой это тасклист -->
+        <task-list 
+        :tasks="completeToDoList" 
+        title="Уже сделаны"   
+        @check="MoveToDo" 
+        @remove="removeTask" 
+        isDelList = 1 
+        SubStyle = "complete-list" 
+        isChecked="isChecked" 
+        :TaskNum = TaskNumDone
+        isHidden = "hidden_button" />
         <p><b>Всего:</b> назначено {{ TaskNumToDo }}, сделано {{ TaskNumDone }}, удалено {{TaskNumDel}}</p>
       </div>
     </div>
