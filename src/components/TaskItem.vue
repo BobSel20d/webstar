@@ -1,24 +1,24 @@
 <template>
     <li>
         <div>
-            <div v-if = "isDelListItem == 1">
-                <input checked type="checkbox" @click="checkItem(index)" />
-                <span v-if = "task.id != item_reddid" :class="isItemChecked">{{ task.title }}  ({{task.date}}) </span>
+            <div >
+                <input :checked="isDelListItem" type="checkbox" @click="checkItem(index)" />
+                <span v-if = "task.id != item_reddid"  >{{ task.title }}  {{isDelListItem ? '('+task.date+')' : ""}} </span>
                 <input class="text-field" 
                 v-if = "task.id == item_reddid" 
-                type="text" 
+                type="text"
                 @input ="inputChangeItem"
                 :value = "task.title">
             </div>
-            <div v-else >
+            <!-- <div v-else >
                 <input type="checkbox" @click="checkItem(index)" />
-                <span v-if = "task.id != item_reddid" :class="isItemChecked">{{ task.title }}  </span>
+                <span v-if = "task.id != item_reddid" :class="isItemChecked" :checked="isItemChecked">{{ task.title }}  </span>
                 <input class="text-field" 
                 v-if = "task.id == item_reddid" 
                 type="text" 
                 @input ="inputChangeItem"
                 :value = "task.title">
-            </div>
+            </div> -->
         
         </div>
         <div>
@@ -47,7 +47,7 @@ export default{
         task: Object,
         index: Number,
         isItemChecked: String,
-        isDelListItem: Number,
+        isDelListItem: Boolean,
         hiddenClass:String,
         item_reddid:Number
 

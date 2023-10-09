@@ -142,7 +142,7 @@ data() {
         @redact="TaskRedact"
         @done="TaskDone"
         @inputChangeList = "inputChange"
-        isDelList = 0 
+        :isDelList = false 
         :TaskNum = TaskNumToDo
         :list_redid = this.redid
         :inputTextList = this.inputText />
@@ -177,7 +177,7 @@ data() {
         title="Уже сделаны"   
         @check="MoveToDo" 
         @remove="removeTask" 
-        isDelList = 1 
+        :isDelList = true 
         SubStyle = "complete-list" 
         isChecked="isChecked" 
         :TaskNum = TaskNumDone
