@@ -1,58 +1,54 @@
 <template>
   <q-page class="bg-gray-3">
-    <q-list class="bg-white" separator bordered>
-      <q-item :class="task.done ? 'done bg-blue-1' : '' " @click="task.done = !task.done" clickable v-ripple v-for="task in tasks" :key="task.title">
-        <q-item-section avatar>
-          <q-checkbox
-          class="no-pointer-events"
-          v-model="task.done"
-          color="primary" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>{{task.title}}</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <q-btn v-if="task.done" dense flat round color="primary" icon="delete" @click="confirm(index)"/>
-        </q-item-section>
-      </q-item>
-    </q-list>
+    <div class="row q-pa-sm bg-primary">
+      <q-input v-model="text" label="Добавить задачу" @keypress.enter="addTask" @blur="this.text = ''" filled bg-color="white" class="col" square>
+        <template v-slot:append>
+          <q-btn round dense flat icon="add" @click="addTask"/>
+        </template>
+      </q-input>
+    </div>
+    <task-list
+    :tasks="tasks.sort(sortByDone)"
+    @confirmList = confirm
+    />
+    <div v-if="this.tasks.length == 0" class="no-tasks absolute-center">
+      <q-icon
+        name="check"
+        size="100px"
+        color="primary"
+      >
+      </q-icon>
+      <div class="text-h5 text-primary text-center">Задач нет</div>
+    </div>
   </q-page>
-  <div class="q-pa-md q-gutter-sm">
-    <q-btn label="Confirm" color="primary" @click="confirm" />
-  </div>
+  <!-- <div class="q-pa-md q-gutter-sm">
+    <q-btn label="Confirm" color="primary" @click="confirm(index)" />
+  </div> -->
 </template>
 
 <script>
+import TaskList from '../components/TaskList.vue'
 export default {
+  components: {
+    TaskList
+  },
   data () {
     return {
       tasks: [
-        {
-          title: 'Проснуться',
-          done: false
-        },
-        {
-          title: 'Прийти на пару',
-          done: false
-        },
-        {
-          title: 'Уйти домой',
-          done: false
-        }
       ]
     }
   },
   methods: {
     confirm (index) {
       this.$q.dialog({
-        title: 'Confirm',
+        title: 'Удаление задачи',
         message: 'Вы уверены, что хотите удалить задачу?',
         cancel: true,
         persistent: true
       }).onOk(() => {
-        this.tasks.splice(index, 1)
+        this.tasks.sort(this.sortByDone).splice(index, 1)
         this.$q.notify({
-          message: 'Задача анигилированна.',
+          message: 'Задача аннигилирована',
           color: 'purple'
         })
       }).onOk(() => {
@@ -62,6 +58,28 @@ export default {
       }).onDismiss(() => {
         // console.log('I am triggered on both OK and Cancel')
       })
+    },
+    sortByDone (d1, d2) {
+      if (d1.done && !d2.done) {
+        return 1
+      }
+      if (d1.done === d2.done) {
+        return 0
+      }
+      if (!d1.done && d2.done) {
+        return -1
+      }
+    },
+    addTask () {
+      if (this.text !== '') {
+        const task = {
+          title: this.text,
+          done: false,
+          date: new Date()
+        }
+        this.tasks.unshift(task)
+      }
+      this.text = ''
     }
   }
 }

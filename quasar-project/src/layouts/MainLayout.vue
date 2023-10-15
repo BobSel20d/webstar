@@ -13,7 +13,7 @@
 
         <div class="q-px-md q-pt-xl q-mb-md" >
         <h3 class="text-h4 q-mt-none q-mb-none">Список задач</h3>
-        <div class="text-subtitle1">Суббота, 15 октября 2022</div>
+        <div class="text-subtitle1">{{getFormatedDate}}</div>
       </div>
       <q-img
         src="~/assets/shrak.jpg"
@@ -61,7 +61,7 @@
             to="/about"
             clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="about" />
+                <q-icon name="info" />
               </q-item-section>
 
               <q-item-section>
@@ -150,6 +150,11 @@ export default defineComponent({
     getDate () {
       const timeStamp = Date.now()
       return date.formatDate(timeStamp, 'YYYY-MM-DDTHH:mm:ss.SSSZ')
+    },
+    getFormatedDate () {
+      const timeStamp = new Date()
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+      return timeStamp.toLocaleDateString('ru-RU', options)
     }
   },
   setup () {

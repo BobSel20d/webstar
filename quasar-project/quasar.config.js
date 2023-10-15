@@ -89,8 +89,9 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
-      config: {},
-
+      plugins: ['Dialog', 'Notify'],
+      config: {
+      }
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
 
@@ -102,7 +103,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+
     },
 
     // animations: 'all', // --- includes all animations
@@ -177,6 +178,7 @@ module.exports = configure(function (/* ctx */) {
       bundler: 'packager', // 'packager' or 'builder'
 
       packager: {
+        platform: 'win32'
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
         // OS X / Mac App Store
