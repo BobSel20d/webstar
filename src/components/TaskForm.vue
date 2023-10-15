@@ -45,15 +45,7 @@
                         };
                         
                     }
-                    // let task={
-                    // id : this.counter,
-                    // title : this.taskInput,
-                    // date :  new Date()
-                    // }
-                    // this.needToDoList.push(task);
-                    // this.taskInput= "";
-                    // this.counter+=1;
-                    // this.TaskNumToDo+=1;
+
         
             }
     },

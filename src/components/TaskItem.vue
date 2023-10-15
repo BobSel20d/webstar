@@ -1,7 +1,7 @@
 <template>
     <li>
         <div>
-            <div >
+            <div>
                 <input :checked="isDelListItem" type="checkbox" @click="checkItem(index)" />
                 <span v-if = "task.id != item_reddid"  >{{ task.title }}  {{isDelListItem ? '('+task.date+')' : ""}} </span>
                 <input class="text-field" 
@@ -9,18 +9,9 @@
                 type="text"
                 @input ="inputChangeItem"
                 :value = "task.title">
-            </div>
-            <!-- <div v-else >
-                <input type="checkbox" @click="checkItem(index)" />
-                <span v-if = "task.id != item_reddid" :class="isItemChecked" :checked="isItemChecked">{{ task.title }}  </span>
-                <input class="text-field" 
-                v-if = "task.id == item_reddid" 
-                type="text" 
-                @input ="inputChangeItem"
-                :value = "task.title">
-            </div> -->
-        
+            </div>       
         </div>
+
         <div>
         <button :class="hiddenClass" v-if="task.id === item_reddid" class="btn btn_mr btn_icon" @click="doneItem(task)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -50,7 +41,6 @@ export default{
         isDelListItem: Boolean,
         hiddenClass:String,
         item_reddid:Number
-
     },
     methods: {
         checkItem(index){
@@ -60,27 +50,16 @@ export default{
             this.$emit('removeItem', index,flag)
         },
         redactItem(task) {
-            //console.log("list1")
-            //redid
           this.$emit('redactItem', task)
         },
         doneItem(task){
-            //console.log("list")
-            this.$emit('doneItem', task)
-            
+            this.$emit('doneItem', task)           
         },
         inputChangeItem(task){
-            //console.log("list")
-            this.$emit('inputChangeItem', task)
-            
+            this.$emit('inputChangeItem', task)     
         }
     }
-
 }
 </script>
 <style scoped>
-/* .isChecked{
-    text-decoration: line-through;
-
-} */
 </style>
