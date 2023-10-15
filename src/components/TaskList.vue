@@ -22,6 +22,7 @@
              :isDelListItem = isDelList
              :hiddenClass = isHidden
              :item_reddid = list_redid
+             
              />
             <!-- <li v-for="(task, index) in tasks" :key="task.id">
               <div>
@@ -70,7 +71,7 @@ export default{
         title:String,
         SubStyle: String,
         isChecked: String,
-        isDelList: Number,
+        isDelList: Boolean,
         isHidden: String,
         list_redid:Number
 
