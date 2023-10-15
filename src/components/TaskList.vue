@@ -83,16 +83,16 @@ export default{
           this.$emit('remove', index,flag)
         },
         redactTask(task){
-          console.log("task1")
+          //console.log("task1")
           this.$emit('redact', task)
         },
         doneTask(task){
-          console.log("task")
+          //console.log("task")
           this.$emit('done', task)
         }
         ,
         inputChangeList(task){
-          console.log("task")
+          //console.log("task")
           this.$emit('inputChangeList', task)
         }
     }
